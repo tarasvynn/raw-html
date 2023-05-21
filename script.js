@@ -1,27 +1,33 @@
-(async () => {
-  const variable = 11;
+const button = document.querySelector(".input-container button");
+const list = document.querySelector(`.todo-list`);
+const input = document.querySelector(`.input-container input`);
 
-  //   const p1 = new Promise((resolve, reject) => {
-  //     if (variable === 11) {
-  //       resolve("OK");
-  //     } else {
-  //       reject("BAD");
-  //     }
-  //   });
+button.addEventListener(`click`, () => {
+  if (!(input.value || "").trim()) {
+    return;
+  }
 
-  //   p1.then((res) => {
-  //     console.log("then", res);
-  //   }).catch((error) => {
-  //     console.log("catch", error);
-  //   });
+  const li = document.createElement(`li`);
+  const text = document.createElement(`span`);
+  const editBtn = document.createElement(`button`);
+  const deleteBtn = document.createElement(`button`);
 
-  //   fetch("https://jsonplaceholder.typicode.com/posts")
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
+  li.className = `todo-list-item`;
+  text.innerText = input.value;
+  editBtn.innerText = `Edit`;
+  deleteBtn.innerText = `Delete`;
 
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const posts = await response.json();
-  console.log(posts);
-})();
+  list.appendChild(li);
+  li.appendChild(text);
+  li.appendChild(editBtn);
+  li.appendChild(deleteBtn);
+
+  input.value = "";
+
+  editBtn.addEventListener(`click`, () => {
+    console.log("edit");
+  });
+  deleteBtn.addEventListener(`click`, () => {
+    list.removeChild(li);
+  });
+});
